@@ -25,6 +25,11 @@
 
 # Visual Studio cache directory
 .vs/
+Cypher/Library
+Cypher/ProjectSettings
+Cypher/Temp
+Cypher/UserSettings
+Cypher/Logs
 
 # Gradle cache directory
 .gradle/
