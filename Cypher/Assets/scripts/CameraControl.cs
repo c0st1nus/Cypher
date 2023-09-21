@@ -28,7 +28,7 @@ public class CameraControl : MonoBehaviour
 
             cameraRotation.z = 0;
             playerRotation.y += MouseX;
-
+            
             transform.rotation = Quaternion.Euler(cameraRotation);
             player.rotation = Quaternion.Euler(playerRotation);
         }
