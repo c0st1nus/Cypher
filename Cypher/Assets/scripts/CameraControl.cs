@@ -6,9 +6,9 @@ public class CameraControl : MonoBehaviour
 {
     private Transform player;
     private Vector3 cameraRotation, playerRotation;
-    [SerializeField][Range(0.5f, 2f)] float sens = 1.35f;
-    [SerializeField][Range(-85, 0f)] float minAngle = -45;
-    [SerializeField][Range(0f, 85f)] float maxAngle = 45;
+    [SerializeField][Range(0.5f, 2f)] private float sens = 1.35f;
+    [SerializeField][Range(-85, 0f)] public float minAngle = -45;
+    [SerializeField][Range(0f, 85f)] public float maxAngle = 45;
     private void Awake()
     {
         player = GameObject.Find("Player").transform;

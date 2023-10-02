@@ -12,7 +12,7 @@ public class MoveControl : MonoBehaviour
     [HideInInspector] public bool isActing = false;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 6)
+        if (collision.gameObject.layer.ToString() == "6")
         {
             isGrounded = true;
         }
@@ -25,11 +25,11 @@ public class MoveControl : MonoBehaviour
     }
     private void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal") * -1;
-        float moveVertical = Input.GetAxis("Vertical") * -1;
-        direction = new Vector3(moveVertical, 0.0f, moveHorizontal);
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        direction = new Vector3(moveHorizontal, 0.0f, moveVertical);
         direction = transform.TransformDirection(direction);
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded || Input.GetKey(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
             isGrounded = false;
