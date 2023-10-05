@@ -37,9 +37,12 @@ public class CameraPlace : MonoBehaviour
                     StartCoroutine(vfxAppear());
                 }
             }
-            else
+            else if (Vector3.Distance(player.transform.position, placePoint.transform.position) > 20f && isClose)
             {
-                text.text = null;
+                if(text.text == "press E to place a camera")
+                {
+                    text.text = null;
+                }
                 isClose = false;
                 animator.SetBool("ShouldAppear", false);
             }
