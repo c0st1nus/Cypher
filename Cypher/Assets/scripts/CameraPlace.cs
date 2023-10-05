@@ -14,6 +14,7 @@ public class CameraPlace : MonoBehaviour
     public GameObject RealCamera;
     private bool isClose = false, placed = false;
     public GameObject PlaceForVFX;
+    public CameraInTabletControl gamemanager;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -65,6 +66,6 @@ public class CameraPlace : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         text.text = null;
         RealCamera.SetActive(true);
-        
+        gamemanager.camerasCount++;
     }
 }
