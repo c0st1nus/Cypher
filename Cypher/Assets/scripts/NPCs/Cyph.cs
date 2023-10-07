@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
 public class Cyph : MonoBehaviour
 {
+    private Task IntroTask = new Task("Привет мир!", "Суйф сказал, что все \"Зашифрованные\" обычно находятся в комнате обывания, нужно сходит посмотреть", 1, "Суйф", true);
     public GameObject player;
     public TMP_Text text;
     public GameObject button;
     public string NPC_name = "Суйф";
     private Cipher cipher = Cipher.NONE;
     private bool talking = false;
-    private int replique = 0;
+    public GameObject gameManager;
+    private Task afterDialogeTask;
     private string[] dialogue1 = {
             "Незнакомец: Эй! Эй слага, кем будешь? Раньше тебя не встречал",
             "Ты: Я, я тут очудился",
@@ -24,7 +27,7 @@ public class Cyph : MonoBehaviour
             "Ты: Хорошо допустим, а как долго ты уже здесь находишься?",
             "Суйф: Я уже сбился со счету, но по ощущениям лет 30, каждый день уже как 1, день сурка какой-то",
             "Ты: Хм, понятно, а ты не знаешь, что мне сейчас нужно сделать? Ведь я здесь не просто так очутился",
-            "Суйф: Ну, вообще ни у кого здесь нет обязательств, можешь сходить в комнату отдыха",
+            "Суйф: Ну, вообще ни у кого здесь нет обязательств, можешь сходить в комнату обывания",
             "Суйф: Там обычно находятся все зашифрованные",
             "Ты: Стой, всмысле зашифрованные?!",
             "Суйф: Да, ты не знал? Все здесь зашифрованы, это мне шифр не присвоили видимо забыли, оно и к лучшему",
@@ -32,6 +35,11 @@ public class Cyph : MonoBehaviour
             "Суйф: но если ты занимался этим в прошлом тебе не будет сложно понять их",
             "Ты: Хорошо, спасибо тебе, пойду посмотрю, что там"
     };
+
+    private void Awake()
+    {
+        IntroTask.TaskConditions.Add("Найти комнату обывания");
+    }
     public void Update()
     {
         if (Vector3.Distance(player.transform.position, transform.position) < 3.5f && !talking)
@@ -53,12 +61,20 @@ public class Cyph : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            stopTalking();
+            if (talking)
+            {
+                stopTalking();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            IntroTask.printTask();
         }
     }
 
     public IEnumerator HelloWordDialogue()
     {
+        afterDialogeTask = IntroTask;
         text.text = null;
         for (int i = 0; i < dialogue1.Length; i++)
         {
@@ -81,6 +97,7 @@ public class Cyph : MonoBehaviour
         text.text = null;
         talking = false;
         button.SetActive(false);
+        gameManager.GetComponent<TaskWindow>().ActiveTask = afterDialogeTask;
     }
 
     public void stopTalking()
@@ -89,6 +106,6 @@ public class Cyph : MonoBehaviour
         text.text = null;
         talking = false;
         button.SetActive(false);
+        gameManager.GetComponent<TaskWindow>().ActiveTask = afterDialogeTask;
     }
 }
-
