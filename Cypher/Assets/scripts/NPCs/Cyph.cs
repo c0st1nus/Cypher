@@ -38,7 +38,7 @@ public class Cyph : MonoBehaviour
 
     private void Awake()
     {
-        IntroTask.TaskConditions.Add("Найти комнату обывания");
+        IntroTask.ConditionAdd("Найти комнату обывания");
     }
     public void Update()
     {

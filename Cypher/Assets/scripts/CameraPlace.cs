@@ -23,7 +23,7 @@ public class CameraPlace : MonoBehaviour
     {
         if (!placed)
         {
-            if (Vector3.Distance(player.transform.position, placePoint.transform.position) < 20f)
+            if (Vector3.Distance(player.transform.position, placePoint.transform.position) < 5f)
             {
                 text.text = "press E to place a camera";
                 isClose = true;
@@ -37,7 +37,7 @@ public class CameraPlace : MonoBehaviour
                     StartCoroutine(vfxAppear());
                 }
             }
-            else if (Vector3.Distance(player.transform.position, placePoint.transform.position) > 20f && isClose)
+            else if (Vector3.Distance(player.transform.position, placePoint.transform.position) > 5f && isClose)
             {
                 if(text.text == "press E to place a camera")
                 {

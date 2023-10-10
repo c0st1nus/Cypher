@@ -12,6 +12,13 @@ public class Task
     public bool TaskCompleted;
     public bool ScenariumTask;
 
+    public void ConditionAdd(string condition)
+    {
+        TaskConditions.Add(condition);
+        TaskConditions.Add("false");
+        taskConditionsCount = TaskConditions.Count / 2;
+        Debug.Log(taskConditionsCount);
+    }
     public Task(string taskname, string taskDescription, int TaskConditionsCount, string taskSender, bool scenariumTask)
     {
         Taskname = taskname;

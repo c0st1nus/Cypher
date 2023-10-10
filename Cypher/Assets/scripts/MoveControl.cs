@@ -10,6 +10,14 @@ public class MoveControl : MonoBehaviour
     public float speed = 5, jumpForce = 5;
     public float currentSpeed;
     [HideInInspector] public bool isActing = false;
+    [SerializeField] private TaskWindow gamemanager;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "habitationRoom")
+        {
+            gamemanager.ActiveTask.TaskConditions[1] = "true";
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer.ToString() == "6")
