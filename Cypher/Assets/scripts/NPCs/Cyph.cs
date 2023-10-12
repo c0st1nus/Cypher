@@ -33,8 +33,11 @@ public class Cyph : MonoBehaviour
             "Суйф: Да, ты не знал? Все здесь зашифрованы, это мне шифр не присвоили видимо забыли, оно и к лучшему",
             "Суйф: А остальные же ни слова не понимают кроме своего шифра",
             "Суйф: но если ты занимался этим в прошлом тебе не будет сложно понять их",
-            "Ты: Хорошо, спасибо тебе, пойду посмотрю, что там"
+            "Ты: Хорошо, спасибо тебе, пойду посмотрю, что там",
+            "Суйф: Не за что, хотя постой, запомни число 12, оно понадобится"
     };
+    private string answer = "Ну чего стоишь? Я тебе все уже сказал";
+    public bool isGone = false;
 
     private void Awake()
     {
@@ -48,7 +51,14 @@ public class Cyph : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 talking = true;
-                StartCoroutine(HelloWordDialogue());
+                if (!isGone)
+                {
+                    StartCoroutine(HelloWordDialogue());
+                }
+                else
+                {
+                    StartCoroutine(AdditionalDialoge());
+                }
                 button.SetActive(true);
             }
         }
@@ -98,6 +108,15 @@ public class Cyph : MonoBehaviour
         talking = false;
         button.SetActive(false);
         gameManager.GetComponent<TaskWindow>().ActiveTask = afterDialogeTask;
+        isGone = true;
+    }
+    public IEnumerator AdditionalDialoge()
+    {
+        text.text = answer;
+        yield return new WaitForSeconds(2f);
+        text.text = null;
+        talking = false;
+        button.SetActive(false);
     }
 
     public void stopTalking()
@@ -106,6 +125,7 @@ public class Cyph : MonoBehaviour
         text.text = null;
         talking = false;
         button.SetActive(false);
+        isGone = true;
         gameManager.GetComponent<TaskWindow>().ActiveTask = afterDialogeTask;
     }
 }

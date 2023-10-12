@@ -17,7 +17,6 @@ public class Task
         TaskConditions.Add(condition);
         TaskConditions.Add("false");
         taskConditionsCount = TaskConditions.Count / 2;
-        Debug.Log(taskConditionsCount);
     }
     public Task(string taskname, string taskDescription, int TaskConditionsCount, string taskSender, bool scenariumTask)
     {

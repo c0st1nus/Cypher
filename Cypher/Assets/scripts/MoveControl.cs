@@ -13,7 +13,7 @@ public class MoveControl : MonoBehaviour
     [SerializeField] private TaskWindow gamemanager;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "habitationRoom")
+        if (other.gameObject.name == "habitationRoom" && gamemanager.ActiveTask != null)
         {
             gamemanager.ActiveTask.TaskConditions[1] = "true";
         }

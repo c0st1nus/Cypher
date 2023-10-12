@@ -15,6 +15,7 @@ public class CameraPlace : MonoBehaviour
     private bool isClose = false, placed = false;
     public GameObject PlaceForVFX;
     public CameraInTabletControl gamemanager;
+    public TaskWindow GameManager;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -23,7 +24,7 @@ public class CameraPlace : MonoBehaviour
     {
         if (!placed)
         {
-            if (Vector3.Distance(player.transform.position, placePoint.transform.position) < 5f)
+            if (Vector3.Distance(player.transform.position, placePoint.transform.position) < 10f)
             {
                 text.text = "press E to place a camera";
                 isClose = true;
@@ -34,10 +35,11 @@ public class CameraPlace : MonoBehaviour
                 animator.SetBool("ShouldAppear", true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    GameManager.ActiveTask.TaskConditions[1] = "true";
                     StartCoroutine(vfxAppear());
                 }
             }
-            else if (Vector3.Distance(player.transform.position, placePoint.transform.position) > 5f && isClose)
+            else if (Vector3.Distance(player.transform.position, placePoint.transform.position) > 10f && isClose)
             {
                 if(text.text == "press E to place a camera")
                 {
@@ -56,6 +58,7 @@ public class CameraPlace : MonoBehaviour
             {
                 obj.GetComponent<MeshRenderer>().enabled = false;
             }
+            
         }
     }
     public IEnumerator vfxAppear ()

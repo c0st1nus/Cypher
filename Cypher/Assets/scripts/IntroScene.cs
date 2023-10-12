@@ -5,15 +5,18 @@ using TMPro;
 
 public class IntroScene : MonoBehaviour
 {
+    public bool endOfGame = false;
     public MoveControl player;
     private string[] repliques = {
-        "Ну привет дорогой игрок",
-        "Я твой гид по этой игре",
-        "Давай я тебе расскажу что тут происходит",
-        "Ты находишься в мире, где все существа состоят из кубиков",
-        "Ты тоже состоишь из кубиков",
-        "Ты можешь управлять своим кубиком с помощью стрелок",
-        "Ты можешь прыгать с помощью пробела",
+        "Добро пожаловать!",
+        "Я - костя, еще недавно в юнити у меня ничего не получалось",
+        "Но я решил не сдаваться и продолжать пытаться,",
+        "И вот результат, я сделал свою первую игру!",
+        "Все немного кривовато, может быть некрасиво, но я старался",
+        "А еще мой кодекс был все сам",
+        "Все в этой игре было сделанно мной, кроме моделек",
+        "Модельки сделал мой друг Асхат, спасибо ему",
+        "Если что, это демо версия игры"
     };
     [SerializeField] private GameObject cube;
     public TMP_Text text;
@@ -23,6 +26,7 @@ public class IntroScene : MonoBehaviour
     }
     private IEnumerator HelloWordDialogue()
     {
+        cube.SetActive(true);
         player.isActing = true;
         Color textColor = text.color;
         text.color = Color.white;
@@ -33,6 +37,19 @@ public class IntroScene : MonoBehaviour
             text.text = repliques[i];
             yield return new WaitForSeconds(2f);
         }
+        player.isActing = false;
+        text.text = null;
+        text.color = textColor;
+        cube.SetActive(false);
+    }
+    private IEnumerator GoodBuy()
+    {
+        cube.SetActive(true);
+        player.isActing = true;
+        Color textColor = text.color;
+        text.color = Color.white;
+        text.text = "Продолжение следует!";
+        yield return new WaitForSeconds(3f);
         player.isActing = false;
         text.text = null;
         text.color = textColor;

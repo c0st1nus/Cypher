@@ -11,11 +11,11 @@ public class TaskWindow : MonoBehaviour
     [SerializeField] private GameObject cameraCanvas;
     [SerializeField] private Toggle[] ConditionsCheckMarks;
     [SerializeField] private TMP_Text TaskName;
+    [SerializeField] private AudioSource audioSource;
     public Task ActiveTask;
     private bool cameraCanvasActive = false, opened = false;
     private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Escape) && !opened)
         {
             openTaskWindow();
@@ -25,6 +25,50 @@ public class TaskWindow : MonoBehaviour
         {
             closeTaskWindow();
             opened = false;
+        }
+        if(ActiveTask != null)
+        {
+            if (ActiveTask.taskConditionsCount == 1)
+            {
+                if(ActiveTask.TaskConditions[1] == "true")
+                {
+                    ActiveTask.TaskCompleted = true;
+                    if (ActiveTask.Taskname == "Зашифрованный")
+                    {
+                        player.GetComponent<IntroScene>().endOfGame = true;
+                    }
+                    ActiveTask = null;
+                    audioSource.Play();
+                    
+                }
+            }
+            else if(ActiveTask.taskConditionsCount == 2)
+            {
+                if (ActiveTask.TaskConditions[1] == "true" && ActiveTask.TaskConditions[3] == "true")
+                {
+                    ActiveTask.TaskCompleted = true;
+                    ActiveTask = null;
+                    audioSource.Play();
+                }
+            }
+            else if (ActiveTask.taskConditionsCount == 3)
+            {
+                if (ActiveTask.TaskConditions[1] == "true" && ActiveTask.TaskConditions[3] == "true" && ActiveTask.TaskConditions[5] == "true")
+                {
+                    ActiveTask.TaskCompleted = true;
+                    ActiveTask = null;
+                    audioSource.Play();
+                }
+            }
+            else if (ActiveTask.taskConditionsCount == 4)
+            {
+                if (ActiveTask.TaskConditions[1] == "true" && ActiveTask.TaskConditions[3] == "true" && ActiveTask.TaskConditions[5] == "true" && ActiveTask.TaskConditions[7] == "true")
+                {
+                    ActiveTask.TaskCompleted = true;
+                    ActiveTask = null;
+                    audioSource.Play();
+                }
+            }
         }
     }
     public void openTaskWindow()
@@ -37,7 +81,6 @@ public class TaskWindow : MonoBehaviour
             cameraCanvasActive = true;
             cameraCanvas.SetActive(false);
         }
-        Time.timeScale = 0f;
         Cursor.visible = true;
     }
     public void closeTaskWindow()
@@ -67,12 +110,6 @@ public class TaskWindow : MonoBehaviour
                     ConditionsCheckMarks[3].gameObject.SetActive(false);
                     ConditionsCheckMarks[0].transform.GetChild(1).GetComponent<Text>().text = ActiveTask.TaskConditions[0];
                     ConditionsCheckMarks[0].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[1] == "true");
-                    if (ActiveTask.TaskConditions[1] == "true")
-                    {
-                        Debug.Log("Task completed");
-                        ActiveTask.TaskCompleted = true;
-                        ActiveTask = null;
-                    }
                     break;
                 case 2:
                     ConditionsCheckMarks[0].gameObject.SetActive(true);
@@ -83,12 +120,6 @@ public class TaskWindow : MonoBehaviour
                     ConditionsCheckMarks[1].transform.GetChild(1).GetComponent<Text>().text = ActiveTask.TaskConditions[2];
                     ConditionsCheckMarks[0].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[1] == "true");
                     ConditionsCheckMarks[1].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[3] == "true");
-                    if (ConditionsCheckMarks[0].transform.GetChild(0).transform.GetChild(0).gameObject.active && ConditionsCheckMarks[1].transform.GetChild(0).transform.GetChild(0).gameObject.active)
-                    {
-                        Debug.Log("Task completed");
-                        ActiveTask.TaskCompleted = true;
-                        ActiveTask = null;
-                    }
                     break;
                 case 3:
                     ConditionsCheckMarks[0].gameObject.SetActive(true);
@@ -101,12 +132,6 @@ public class TaskWindow : MonoBehaviour
                     ConditionsCheckMarks[0].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[1] == "true");
                     ConditionsCheckMarks[1].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[3] == "true");
                     ConditionsCheckMarks[2].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[5] == "true");
-                    if (ConditionsCheckMarks[0].transform.GetChild(0).transform.GetChild(0).gameObject.active && ConditionsCheckMarks[1].transform.GetChild(0).transform.GetChild(0).gameObject.active && ConditionsCheckMarks[2].transform.GetChild(0).transform.GetChild(0).gameObject.active)
-                    {
-                        Debug.Log("Task completed");
-                        ActiveTask.TaskCompleted = true;
-                        ActiveTask = null;
-                    }
                     break;
                 case 4:
                     ConditionsCheckMarks[0].gameObject.SetActive(true);
@@ -121,12 +146,6 @@ public class TaskWindow : MonoBehaviour
                     ConditionsCheckMarks[1].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[3] == "true");
                     ConditionsCheckMarks[2].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[5] == "true");
                     ConditionsCheckMarks[3].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(ActiveTask.TaskConditions[7] == "true");
-                    if (ConditionsCheckMarks[0].transform.GetChild(0).transform.GetChild(0).gameObject.active && ConditionsCheckMarks[1].transform.GetChild(0).transform.GetChild(0).gameObject.active && ConditionsCheckMarks[2].transform.GetChild(0).transform.GetChild(0).gameObject.active && ConditionsCheckMarks[3].transform.GetChild(0).transform.GetChild(0).gameObject.active)
-                    {
-                        Debug.Log("Task completed");
-                        ActiveTask.TaskCompleted = true;
-                        ActiveTask = null;
-                    }
                     break;
             }
             if (ActiveTask != null)
@@ -141,7 +160,7 @@ public class TaskWindow : MonoBehaviour
                 checkMark.gameObject.SetActive(false);
             }
             TaskName.text = "Нет активных заданий";
-
         }
+        Time.timeScale = 0f;
     }
 }
