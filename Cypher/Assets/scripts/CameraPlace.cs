@@ -35,7 +35,10 @@ public class CameraPlace : MonoBehaviour
                 animator.SetBool("ShouldAppear", true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    GameManager.ActiveTask.TaskConditions[1] = "true";
+                    if(GameManager.ActiveTask != null)
+                    {
+                        GameManager.ActiveTask.TaskConditions[1] = "true";
+                    }
                     StartCoroutine(vfxAppear());
                 }
             }

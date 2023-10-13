@@ -9222,8 +9222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00039291382, y: -208.0373}
-  m_SizeDelta: {x: 923.76, y: 103.5456}
+  m_AnchoredPosition: {x: -0.00039291382, y: -193.04}
+  m_SizeDelta: {x: 923.76, y: 133.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2081119151
 MonoBehaviour:
@@ -9518,7 +9518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5595177710810343708, guid: b0ba333f65424df4885a5dcfb140f9a6, type: 3}
       propertyPath: speed
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5595177710810343708, guid: b0ba333f65424df4885a5dcfb140f9a6, type: 3}
       propertyPath: gamemanager
